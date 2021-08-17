@@ -42,13 +42,11 @@ function hasTodoParameters(request, response, next) {
 function todoExists(request, response, next) {
   // Complete aqui
   const { user } = request;
-  const { id } = request.params;
+  const { id: todoId } = request.params;
 
-  const todoIndex = user.todos.findIndex(
-    (currentTodo) => currentTodo.id === id
-  );
+  const todo = user.todos.find((currentTodo) => currentTodo.id === todoId);
 
-  if (todoIndex === -1) {
+  if (!todo) {
     return response.status(404).json({ error: "Todo not found!" });
   }
 
